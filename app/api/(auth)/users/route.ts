@@ -35,6 +35,20 @@ export const POST = async (request: Request) => {
   }
 };
 
+/**
+ * Handles PATCH requests to update a user's username.
+ *
+ * Expects a JSON body with `userId` and `newUsername` fields.
+ * - Validates the presence and format of `userId` and `newUsername`.
+ * - Connects to the database and attempts to update the user's username.
+ * - Returns appropriate HTTP responses based on the outcome:
+ *   - 200: User successfully updated.
+ *   - 400: Missing or invalid input, or user not found.
+ *   - 500: Internal server error during update.
+ *
+ * @param request - The incoming HTTP request containing the user update data.
+ * @returns A `NextResponse` object with the result of the update operation.
+ */
 export const PATCH = async (request: Request) => {
   try {
     const body = await request.json();
