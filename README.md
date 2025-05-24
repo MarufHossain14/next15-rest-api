@@ -1,4 +1,4 @@
-# Next.js 15 REST API Project
+# Next.js 15 REST API
 
 This is a beginner-friendly REST API built using **Next.js 15**. The project uses the **App Router** and **Route Handlers**, following modern best practices in the latest version of Next.js.
 
