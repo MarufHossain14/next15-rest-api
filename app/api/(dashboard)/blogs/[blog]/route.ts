@@ -5,6 +5,22 @@ import { NextResponse } from "next/server";
 import { Types } from "mongoose";
 import Blog from "@/lib/models/blog";
 
+/**
+ * Handles GET requests to fetch a specific blog by its ID, user ID, and category ID.
+ *
+ * Validates the provided `userId`, `categoryId`, and `blogId` from the request parameters and query string.
+ * - Returns a 400 response if any of the IDs are missing or invalid.
+ * - Checks if the user and category exist in the database.
+ * - Searches for the blog matching the provided IDs.
+ * - Returns the blog data as a JSON response if found.
+ * - Returns appropriate error messages and status codes for not found or invalid cases.
+ * - Returns a 500 response in case of unexpected errors.
+ *
+ * @param request - The incoming HTTP request object.
+ * @param context - An object containing route parameters, specifically the blog ID.
+ * @returns A `NextResponse` containing the blog data or an error message.
+ */
+
 export const GET = async (request: Request, context: {params: any}) => {
     const blogId = context.params.blog;
     try{

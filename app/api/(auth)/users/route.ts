@@ -42,55 +42,13 @@ export const POST = async (request: Request) => {
  * - Validates the presence and format of `userId` and `newUsername`.
  * - Connects to the database and attempts to update the user's username.
  * - Returns appropriate HTTP responses based on the outcome:
- *   - 200: User successfully updated.
+ *   - 200: User updated successfully.
  *   - 400: Missing or invalid input, or user not found.
- *   - 500: Internal server error during update.
+ *   - 500: Server/database error.
  *
  * @param request - The incoming HTTP request containing the user update data.
- * @returns A `NextResponse` object with the result of the update operation.
+ * @returns A `NextResponse` with the result of the update operation.
  */
-export const PATCH = async (request: Request) => {
-  try {
-    const body = await request.json();
-    const { userId, newUsername } = body;
-
-    await connect();
-    if (!userId || !newUsername) {
-      return new NextResponse(
-        JSON.stringify({ message: "ID or new username not found" }),
-        { status: 400 }
-      );
-    }
-
-    if (!Types.ObjectId.isValid(userId)) {
-      return new NextResponse(JSON.stringify({ message: "Invalid User id" }), {
-        status: 400,
-      });
-    }
-
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: new ObjectId(userId) },
-      { username: newUsername },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return new NextResponse(
-        JSON.stringify({ message: "User not found in the database" }),
-        { status: 400 }
-      );
-    }
-
-    return new NextResponse(
-      JSON.stringify({ message: "User is updated", user: updatedUser }),
-      { status: 200 }
-    );
-  } catch (error: any) {
-    return new NextResponse("Error in updating user" + error.message, {
-      status: 500,
-    });
-  }
-};
 
 export const DELETE = async (request: Request) => {
   try {
