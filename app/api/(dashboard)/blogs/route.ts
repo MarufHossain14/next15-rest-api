@@ -5,6 +5,24 @@ import { NextResponse } from "next/server";
 import { Types } from "mongoose";
 import Blog from "@/lib/models/blog";
 
+/**
+ * Handles GET requests to fetch blogs filtered by user, category, keywords, and date range.
+ *
+ * @param request - The incoming HTTP request object.
+ * @returns A `NextResponse` containing the filtered list of blogs or an error message.
+ *
+ * @remarks
+ * - Requires valid `userId` and `categoryId` query parameters (must be valid MongoDB ObjectIds).
+ * - Optional query parameters:
+ *   - `Keywords`: Search string to match against blog titles and descriptions (case-insensitive).
+ *   - `startDate` and/or `endDate`: Filter blogs by creation date range.
+ *   - `page`: Page number for pagination (defaults to 1).
+ *   - `limit`: Number of blogs per page (defaults to 10).
+ * - Returns 400 if user or category is invalid or not found.
+ * - Returns 200 with the list of blogs on success.
+ * - Returns 500 on server/database errors.
+ */
+
 export const GET = async (request: Request) => {
     try {
         const { searchParams } = new URL(request.url);
